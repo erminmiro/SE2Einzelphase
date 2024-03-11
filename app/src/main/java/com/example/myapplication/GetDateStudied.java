@@ -31,11 +31,14 @@ public class GetDateStudied implements Runnable{
 
             response = getFromServer.readLine();
 
-            Log.d("Response","Response from server : "+response);
 
         } catch (IOException e) {
             Log.d("Response","Response from server error ");
             throw new RuntimeException(e);
         }
+    }
+
+    public String getResponse(){
+        return response;
     }
 }

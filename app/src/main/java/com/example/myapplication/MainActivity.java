@@ -36,22 +36,27 @@ public class MainActivity extends AppCompatActivity {
         responseField = findViewById(R.id.responseField);
 
         checkHowLong.setOnClickListener(v -> {
-                responseField.setText(inputField.getText());
             try {
-                getTheTimeStudied(inputField.getText().toString());
+
+                String result = getTheTimeStudied(inputField.getText().toString());
+                responseField.setText(result);
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
             Log.d("Button","Clicked");
         });
 
     }
 
-    public void getTheTimeStudied(String matrNumber) throws InterruptedException {
+    public String getTheTimeStudied(String matrNumber) throws InterruptedException {
         GetDateStudied getDateStudied = new GetDateStudied(matrNumber);
         Thread connectionThread = new Thread(getDateStudied);
 
         connectionThread.start();
         connectionThread.join();
+
+        return getDateStudied.getResponse();
     }
 }
