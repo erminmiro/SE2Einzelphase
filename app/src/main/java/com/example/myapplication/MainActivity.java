@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,7 +37,21 @@ public class MainActivity extends AppCompatActivity {
 
         checkHowLong.setOnClickListener(v -> {
                 responseField.setText(inputField.getText());
+            try {
+                getTheTimeStudied(inputField.getText().toString());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Log.d("Button","Clicked");
         });
 
+    }
+
+    public void getTheTimeStudied(String matrNumber) throws InterruptedException {
+        GetDateStudied getDateStudied = new GetDateStudied(matrNumber);
+        Thread connectionThread = new Thread(getDateStudied);
+
+        connectionThread.start();
+        connectionThread.join();
     }
 }
