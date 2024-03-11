@@ -14,9 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button checkHowLong;
-    private EditText inputField;
-    private TextView responseField;
+    private String matrNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +27,30 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        checkHowLong = findViewById(R.id.button);
+        Button checkHowLong = findViewById(R.id.button);
 
-        inputField = findViewById(R.id.editTextNumber);
+        EditText inputField = findViewById(R.id.editTextNumber);
 
-        responseField = findViewById(R.id.responseField);
+        TextView responseField = findViewById(R.id.responseField);
+
+        Button checkPrimeButton = findViewById(R.id.primeButton);
+
+        TextView primeResponseField = findViewById(R.id.primeResponseField);
 
         checkHowLong.setOnClickListener(v -> {
             try {
-
                 String result = getTheTimeStudied(inputField.getText().toString());
                 responseField.setText(result);
-
-                PrimeNumberCheck prime = new PrimeNumberCheck(inputField.getText().toString());
-                prime.checkPrimeNumbers();
 
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        });
 
-            Log.d("Button","Clicked");
+        checkPrimeButton.setOnClickListener(v -> {
+            PrimeNumberCheck getPrimeNumbers = new PrimeNumberCheck(inputField.getText().toString());
+            String result = getPrimeNumbers.checkPrimeNumbers();
+            primeResponseField.setText(result);
         });
 
     }
