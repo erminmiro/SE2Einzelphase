@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 String result = getTheTimeStudied(inputField.getText().toString());
                 responseField.setText(result);
 
+                PrimeNumberCheck prime = new PrimeNumberCheck(inputField.getText().toString());
+                prime.checkPrimeNumbers();
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
